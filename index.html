@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vértice de Sola | La Arquitectura de la Dualidad</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400&family=Playfair+Display:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        /* --- GUÍA DE ESTILO Y VARIABLES --- */
+        :root {
+            --color-marfil: #F5F4F0; /* Blanco hueso / marfil */
+            --color-carbon: #121212; /* Negro carbón / obsidiana */
+            --color-plata: #C0C0C0;  /* Plata */
+            --color-oro: #C5A059;    /* Oro */
+            --font-serif: 'Playfair Display', serif;
+            --font-sans: 'Montserrat', sans-serif;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--font-sans);
+            background-color: var(--color-carbon);
+            color: var(--color-marfil);
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3 {
+            font-family: var(--font-serif);
+            font-weight: 400;
+            letter-spacing: 4px; /* Mucho interletrado para elegancia */
+            text-transform: uppercase;
+        }
+
+        p {
+            font-weight: 300;
+            letter-spacing: 1px;
+            line-height: 1.8;
+        }
+
+        /* --- HERO SECTION --- */
+        .hero {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            background: linear-gradient(135deg, #1a1a1a 0%, #0a0a0a 100%);
+            position: relative;
+        }
+
+        /* --- ESTILOS DEL ICONO SVG (Montaña/Vértice) --- */
+        .hero-logo-svg {
+            width: 120px;
+            height: auto;
+            margin-bottom: 40px;
+            color: var(--color-marfil);
+            transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1), color 0.4s ease, filter 0.6s ease;
+            overflow: visible;
+        }
+
+        .hero-logo-svg:hover {
+            transform: translateY(-5px) scale(1.05); /* Ligera elevación al pasar el mouse */
+            color: var(--color-oro); /* Transición sutil a oro */
+            filter: drop-shadow(0 8px 12px rgba(197, 160, 89, 0.2)); /* Brillo sutil */
+        }
+
+        .hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+        }
+
+        .hero p {
+            font-size: 1rem;
+            color: #888;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+        }
+
+        /* --- DUALIDAD: SPLIT SCREEN --- */
+        .dual-container {
+            display: flex;
+            width: 100vw;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        .split {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 40px;
+            transition: flex 0.7s cubic-bezier(0.25, 1, 0.5, 1), background-color 0.5s ease;
+            position: relative;
+            cursor: pointer;
+        }
+
+        .split-content {
+            opacity: 0.6;
+            transition: opacity 0.5s ease, transform 0.5s ease;
+            text-align: center;
+            transform: translateY(20px);
+        }
+
+        /* Vértice Blanco (Expresión Luminosa) */
+        .split.light {
+            background-color: var(--color-marfil);
+            color: var(--color-carbon);
+            border-right: 1px solid rgba(0,0,0,0.1);
+        }
+        
+        .split.light h2 {
+            color: var(--color-plata); /* Acento plata */
+        }
+
+        /* Vértice Negro (Expresión Profunda) */
+        .split.dark {
+            background-color: var(--color-carbon);
+            color: var(--color-marfil);
+            border-left: 1px solid rgba(255,255,255,0.05);
+        }
+
+        .split.dark h2 {
+            color: var(--color-oro); /* Acento oro */
+        }
+
+        /* Interacciones Hover en Split Screen */
+        .dual-container:hover .split:not(:hover) {
+            flex: 0.85; /* Menos compresión para una transición más lujosa */
+        }
+
+        .split:hover {
+            flex: 1.15;
+        }
+
+        .split:hover .split-content {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .split h2 {
+            font-size: 2rem;
+            margin-bottom: 15px;
+        }
+
+        .split h3 {
+            font-size: 1rem;
+            font-family: var(--font-sans);
+            margin-bottom: 30px;
+            letter-spacing: 2px;
+        }
+
+        .tasting-notes {
+            list-style: none;
+            margin-top: 30px;
+            font-size: 0.9rem;
+            border-top: 1px solid currentColor;
+            padding-top: 20px;
+            display: inline-block;
+        }
+
+        .tasting-notes li {
+            margin-bottom: 10px;
+        }
+
+        /* --- BOTÓN MINIMALISTA --- */
+        .btn-minimal {
+            margin-top: 40px;
+            padding: 15px 40px;
+            background: transparent;
+            border: 1px solid currentColor;
+            color: inherit;
+            font-family: var(--font-sans);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .split.light .btn-minimal:hover {
+            background: var(--color-carbon);
+            color: var(--color-marfil);
+        }
+
+        .split.dark .btn-minimal:hover {
+            background: var(--color-marfil);
+            color: var(--color-carbon);
+        }
+    </style>
+</head>
+<body>
+
+    <section class="hero">
+        <svg class="hero-logo-svg" viewBox="0 0 100 60" xmlns="http://www.w3.org/2000/svg">
+            <g stroke="currentColor" stroke-width="1.5" stroke-linecap="round" fill="none">
+                <line x1="50" y1="5" x2="5" y2="55" />
+                <line x1="50" y1="5" x2="18" y2="55" />
+                <line x1="50" y1="5" x2="30" y2="55" />
+                <line x1="50" y1="5" x2="40" y2="55" />
+                <line x1="50" y1="5" x2="50" y2="55" /> <line x1="50" y1="5" x2="60" y2="55" />
+                <line x1="50" y1="5" x2="70" y2="55" />
+                <line x1="50" y1="5" x2="82" y2="55" />
+                <line x1="50" y1="5" x2="95" y2="55" />
+            </g>
+        </svg>
+        
+        <h1>Dos fuerzas. Una montaña. Un vértice.</h1>
+        <p>Descubre la dualidad de la sierra sur</p>
+    </section>
+
+    <section class="dual-container">
+        
+        <div class="split light">
+            <div class="split-content">
+                <h2>Vértice Blanco</h2>
+                <h3>Expresión Luminosa</h3>
+                <p>La vertiente cálida, expansiva y abierta hacia la costa.</p>
+                
+                <ul class="tasting-notes">
+                    <li>FRUTA MADURA</li>
+                    <li>FLORES Y MIEL</li>
+                    <li>TEXTURA SEDOSA</li>
+                </ul>
+                <br>
+                <button class="btn-minimal">Descubrir</button>
+            </div>
+        </div>
+
+        <div class="split dark">
+            <div class="split-content">
+                <h2>Vértice Negro</h2>
+                <h3>Expresión Profunda</h3>
+                <p>El interior de la sierra, frío, oscuro e introspectivo.</p>
+                
+                <ul class="tasting-notes">
+                    <li>MINERALIDAD</li>
+                    <li>TIERRA HÚMEDA</li>
+                    <li>TENSIÓN ESTRUCTURAL</li>
+                </ul>
+                <br>
+                <button class="btn-minimal">Descubrir</button>
+            </div>
+        </div>
+
+    </section>
+
+    <script>
+        // Efecto parallax sutil para el texto y el icono del Hero al hacer scroll
+        window.addEventListener('scroll', () => {
+            const heroLogoSvg = document.querySelector('.hero-logo-svg');
+            const heroText = document.querySelector('.hero h1');
+            const heroP = document.querySelector('.hero p');
+            let scrollPosition = window.pageYOffset;
+            
+            // Animamos el SVG creado con código
+            if (heroLogoSvg) {
+                heroLogoSvg.style.transform = `translateY(${scrollPosition * 0.5}px)`;
+                heroLogoSvg.style.opacity = 1 - scrollPosition / 300;
+            }
+
+            // Animamos los textos
+            if(heroText && heroP) {
+                heroText.style.transform = `translateY(${scrollPosition * 0.4}px)`;
+                heroText.style.opacity = 1 - scrollPosition / 400;
+                
+                heroP.style.transform = `translateY(${scrollPosition * 0.2}px)`;
+                heroP.style.opacity = 1 - scrollPosition / 500;
+            }
+        });
+    </script>
+</body>
+</html>
